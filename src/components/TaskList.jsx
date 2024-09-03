@@ -7,6 +7,7 @@ export function TaskList({
   onDeleteTask,
   onAddConcludeTask,
   onRemoveConcludeTask,
+  onMoveTask,
 }) {
   const [isChecked, setIsChecked] = useState(false);
 
@@ -19,8 +20,10 @@ export function TaskList({
     setIsChecked(!isChecked);
     if (!isChecked) {
       onAddConcludeTask(content);
+      onMoveTask(content, true);
     } else {
       onRemoveConcludeTask(content);
+      onMoveTask(content, false);
     }
   }
 

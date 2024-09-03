@@ -36,6 +36,17 @@ export function App() {
     setTask(taskWithoutDeleted);
   }
 
+  function handleMoveTask(taskToMove, moveToEnd) {
+    setTask((prevTasks) => {
+      const filteredTasks = prevTasks.filter((task) => task !== taskToMove);
+      if (moveToEnd) {
+        return [...filteredTasks, taskToMove];
+      } else {
+        return [taskToMove, ...filteredTasks];
+      }
+    });
+  }
+
   const totalTasks = task.length;
 
   const totalConcludeTasks = concludeTask.length;
@@ -52,14 +63,15 @@ export function App() {
             totalConcludeTasks={totalConcludeTasks}
           />
           <div className={styles.tasks}>
-            {task.map((task, index) => {
+            {task.map((task) => {
               return (
                 <TaskList
-                  key={index}
+                  key={task}
                   content={task}
                   onDeleteTask={deleteTask}
                   onAddConcludeTask={addConcludeTask}
                   onRemoveConcludeTask={removeConcludeTask}
+                  onMoveTask={handleMoveTask}
                 />
               );
             })}

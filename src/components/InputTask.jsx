@@ -9,10 +9,16 @@ export function InputTask({ addTask }) {
     setItemTask(event.target.value);
   }
 
-  function handleAddTask(event) {
-    event.preventDefault();
+  function handleAddTask() {
     addTask(itemTask);
     setItemTask("");
+  }
+
+  function handleKeyDown() {
+    if (event.key === "Enter") {
+      addTask(itemTask);
+      setItemTask("");
+    }
   }
 
   return (
@@ -22,6 +28,7 @@ export function InputTask({ addTask }) {
         type="text"
         value={itemTask}
         onChange={getValueTask}
+        onKeyDown={handleKeyDown}
         placeholder="Adicione uma nova tarefa"
       />
       <button onClick={handleAddTask}>
